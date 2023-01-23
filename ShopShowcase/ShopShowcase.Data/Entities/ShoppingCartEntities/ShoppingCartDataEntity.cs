@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using ShopShowcase.Data.Entities.BaseEntities;
+﻿using ShopShowcase.Data.Entities.BaseEntities;
 using ShopShowcase.Data.Entities.ProductEntities;
+using System.Collections.Generic;
 
 namespace ShopShowcase.Data.Entities.ShoppingCartEntities
 {

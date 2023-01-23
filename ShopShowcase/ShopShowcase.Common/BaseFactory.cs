@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShopShowcase.Common;
 
 namespace ShopShowcase.Common
 {

@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShopShowcase.Data.Entities.BaseEntities;
+using System;
 
 namespace ShopShowcase.Data.Extensions
 {

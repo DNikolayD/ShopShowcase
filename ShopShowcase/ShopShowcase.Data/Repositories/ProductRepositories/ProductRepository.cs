@@ -6,7 +6,7 @@ namespace ShopShowcase.Data.Repositories.ProductRepositories
 {
     public class ProductRepository : BaseRepository<ProductDataEntity>, IProductRepository
     {
-        public ProductRepository(ApplicationDbContext applicationDbContext, ILogger<BaseRepository<ProductDataEntity>> logger) : 
+        public ProductRepository(ApplicationDbContext applicationDbContext, ILogger<BaseRepository<ProductDataEntity>> logger) :
             base(applicationDbContext, logger)
         {
         }

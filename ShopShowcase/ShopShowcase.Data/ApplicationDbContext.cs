@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShopShowcase.Data.Entities;
 using ShopShowcase.Data.Entities.ProductEntities;
 using ShopShowcase.Data.Entities.ShoppingCartEntities;
 using ShopShowcase.Data.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShopShowcase.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<UserDataEntity>
     {
 
         public ApplicationDbContext(DbContextOptions options) : base(options)

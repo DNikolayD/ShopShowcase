@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopShowcase.Common\ShopShowcase.Common.csproj" />
     <ProjectReference Include="..\ShopShowcase.Data\ShopShowcase.Data.csproj" />
+    <ProjectReference Include="..\ShopShowcase.Services\ShopShowcase.Services.csproj" />
   </ItemGroup>
 
 </Project>

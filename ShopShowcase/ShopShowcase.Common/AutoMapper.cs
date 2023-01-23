@@ -22,7 +22,7 @@ namespace ShopShowcase.Common
         }
 
         private static T MapNonGenerics<T>(this object entity, T result)
-        { 
+        {
             result?.GetType()
                 .GetProperties()
                 .Where(p => !p.GetType().IsGenericType)
@@ -34,7 +34,7 @@ namespace ShopShowcase.Common
         }
 
         private static T MapGenerics<T>(this object entity, T result)
-        { 
+        {
             result!
                 .GetType()
                 .GetProperties()
@@ -52,6 +52,6 @@ namespace ShopShowcase.Common
             return result;
         }
 
-        
+
     }
 }

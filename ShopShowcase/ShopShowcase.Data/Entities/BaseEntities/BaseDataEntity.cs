@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ShopShowcase.Data.Extensions;
+using System;
 using System.ComponentModel.DataAnnotations;
-using ShopShowcase.Data.Extensions;
 
 namespace ShopShowcase.Data.Entities.BaseEntities
 {

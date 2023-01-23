@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShopShowcase.Common;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShopShowcase.Data.Repositories.BaseRepositories
 {

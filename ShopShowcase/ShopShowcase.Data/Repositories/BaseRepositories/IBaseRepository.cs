@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using ShopShowcase.Common;
+﻿using ShopShowcase.Common;
+using System.Threading.Tasks;
 
 namespace ShopShowcase.Data.Repositories.BaseRepositories
 {

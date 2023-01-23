@@ -16,10 +16,10 @@ namespace ShopShowcase.Common
         {
             var validators = Assembly.GetAssembly(typeof(BaseValidator))!
                 .GetTypes()
-                .Where(myType => myType is {IsClass: true} && myType.IsSubclassOf(typeof(BaseValidator)))
-                .Select(type => (BaseValidator) Activator.CreateInstance(type)!)
+                .Where(myType => myType is { IsClass: true } && myType.IsSubclassOf(typeof(BaseValidator)))
+                .Select(type => (BaseValidator)Activator.CreateInstance(type)!)
                 .Select(dummy => dummy)
-                .ToList(); 
+                .ToList();
             validators.Sort();
             foreach (var type in validators.Select(validator => validator.GetType()))
             {
