@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ShopShowcase.Common;
+using ShopShowcase.Common.Factories;
 using ShopShowcase.Data;
 using ShopShowcase.Data.Repositories.BaseRepositories;
+using ShopShowcase.Services.Services.BaseService;
 using ShopShowcase.Services.Services.InjectionTypes;
 using System.IO;
 using System.Linq;
@@ -19,9 +20,10 @@ namespace ShopShowcase.API.Extensions
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddLogging();
-            services.AddScoped(typeof(IBaseRepository), typeof(BaseRepository<>));
-            services.AddTransient(typeof(BaseFactory<>), typeof(BaseFactory<>));
-            services.AddServices();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient(typeof(BaseFactory<,>), typeof(BaseFactory<,>));
+            services.AddTransient(typeof(IBaseService<,,,>), typeof(BaseService<,,,>));
+            //services.AddServices();
         }
 
         private static void AddCustomDb(this IServiceCollection services, IConfiguration configuration)

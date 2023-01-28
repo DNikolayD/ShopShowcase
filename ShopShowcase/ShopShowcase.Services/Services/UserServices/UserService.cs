@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using ShopShowcase.Common.Handlers.Generics;
+using ShopShowcase.Common.Requests;
+using ShopShowcase.Common.Responses;
+using ShopShowcase.Data.Entities;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using ShopShowcase.Common;
-using ShopShowcase.Data.Entities;
 
 namespace ShopShowcase.Services.Services.UserServices
 {

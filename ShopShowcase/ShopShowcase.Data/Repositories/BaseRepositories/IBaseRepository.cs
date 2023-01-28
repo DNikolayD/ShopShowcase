@@ -1,9 +1,10 @@
-﻿using ShopShowcase.Common;
+﻿using ShopShowcase.Common.Requests;
+using ShopShowcase.Common.Responses;
 using System.Threading.Tasks;
 
 namespace ShopShowcase.Data.Repositories.BaseRepositories
 {
-    public interface IBaseRepository
+    public interface IBaseRepository<TData>
     {
         BaseResponse GetMany(BaseRequest request);
 

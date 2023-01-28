@@ -1,4 +1,4 @@
-﻿using ShopShowcase.Common;
+﻿using ShopShowcase.Common.Extensions;
 using ShopShowcase.Data.Entities.BaseEntities;
 using System;
 

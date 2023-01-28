@@ -1,22 +1,27 @@
 ﻿using Microsoft.Extensions.Logging;
-using ShopShowcase.Common;
+using ShopShowcase.Common.Factories;
+using ShopShowcase.Common.Handlers.Generics;
+using ShopShowcase.Common.Handlers.Specific;
+using ShopShowcase.Common.Requests;
+using ShopShowcase.Common.Responses;
+using ShopShowcase.Common.Validators;
 using ShopShowcase.Data.Repositories.BaseRepositories;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShopShowcase.Services.Services.BaseService
 {
-    public abstract class BaseService<TFactory, TClass> : IBaseService where TClass : class where TFactory : BaseFactory<TClass>
+    public class BaseService<TFactory, TValidator, TClass, TData> : IBaseService<TFactory, TValidator, TClass, TData> where TClass : class where TFactory : BaseFactory<TValidator, TClass> where TValidator : BaseValidator<TClass>
     {
-        protected readonly IBaseRepository _repository;
+        protected readonly IBaseRepository<TData> _repository;
 
         protected readonly TFactory _factory;
 
-        protected readonly BaseValidator _validator;
+        protected readonly TValidator _validator;
 
-        protected readonly ILogger<BaseService<TFactory, TClass>> _logger;
+        protected readonly ILogger<BaseService<TFactory, TValidator, TClass, TData>> _logger;
 
-        protected BaseService(IBaseRepository repository, TFactory factory, ILogger<BaseService<TFactory, TClass>> logger)
+        protected BaseService(IBaseRepository<TData> repository, TFactory factory, ILogger<BaseService<TFactory, TValidator, TClass, TData>> logger)
         {
             _repository = repository;
             _factory = factory;
@@ -32,7 +37,8 @@ namespace ShopShowcase.Services.Services.BaseService
             var response = await _repository.InsertAsync(request);
             var text = response.Extract();
             await FileHandler.HandleTextFilesForMocking(string.Empty, fileName, text);
-            _factory.Validator.Validate(response);
+            _validator.Validate(response.Payload.MapTo<TClass>());
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
         }
@@ -42,7 +48,8 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, Remove";
             request.Origin = origin;
             var response = _repository.Delete(request);
-            _factory.Validator.Validate(response);
+            _validator.Validate(response.Payload.MapTo<TClass>());
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
         }
@@ -52,7 +59,8 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, Update";
             request.Origin = origin;
             var response = _repository.Update(request);
-            _factory.Validator.Validate(response);
+            _validator.Validate(response.Payload.MapTo<TClass>());
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
         }
@@ -62,9 +70,9 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, Get";
             var response = ResponseFactory.InitialiseEntity();
             request.Origin = origin;
-            _factory.Validator.Validate(request.Payload);
+            _validator.Validate(request.Payload.MapTo<TClass>());
             if (_validator.HasErrors)
-                response.Errors = _validator.Errors.ToList();
+                response.Errors = _validator.Errors;
             else
                 response = _repository.GetById(request);
             _logger.LogInformation(response.GetMessage());
@@ -76,7 +84,12 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, GetMany";
             request.Origin = origin;
             var response = _repository.GetMany(request);
-            _factory.Validator.Validate(response);
+            foreach (var @class in response.Payload.MapTo<List<TClass>>())
+            {
+                _validator.Validate(@class);
+            }
+
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
         }
@@ -86,7 +99,12 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, GetSorted";
             request.Origin = origin;
             var response = _repository.Sort(request);
-            _factory.Validator.Validate(response);
+            foreach (var @class in response.Payload.MapTo<List<TClass>>())
+            {
+                _validator.Validate(@class);
+            }
+
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
 
@@ -97,7 +115,11 @@ namespace ShopShowcase.Services.Services.BaseService
             var origin = $"{this.GetType().Name}, GetSorted";
             request.Origin = origin;
             var response = _repository.Filter(request);
-            _factory.Validator.Validate(response);
+            foreach (var @class in response.Payload.MapTo<List<TClass>>())
+            {
+                _validator.Validate(@class);
+            }
+            response.Errors = _validator.Errors;
             _logger.LogInformation(response.GetMessage());
             return response;
         }

@@ -1,10 +1,11 @@
-﻿using ShopShowcase.Common;
+﻿using ShopShowcase.Common.Requests;
+using ShopShowcase.Common.Responses;
 using ShopShowcase.Services.Services.InjectionTypes;
 using System.Threading.Tasks;
 
 namespace ShopShowcase.Services.Services.BaseService
 {
-    public interface IBaseService : IScopedService
+    public interface IBaseService<TFactory, TValidator, TClass, TData> : IService
     {
         public Task<BaseResponse> AddAsync(BaseRequest request);
 
